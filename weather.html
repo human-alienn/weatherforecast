@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEATHER FORECAST</title>
+    <link rel="stylesheet" href="weather.css">
+    <link rel="shortcut icon" href="/image/cloud.jpg" type="image/jpg">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.css">
+</head>
+<body style="background:url(/image/wether_gif.webp) ;" id="imagere" >
+<center>
+    <section>
+        <div class="container">
+            <div class="cards" style="height: auto;">
+                <div class="content">
+                    <div class="d-flex">
+                        <input type="text" class="p-2 me-2 form-control" id="userLocation" placeholder="Enter City Name" style="outline: none; border: none; 
+                        border-bottom: thin solid gray; 
+                        border-left: thin solid grey;
+                        background-color: transparent;">
+                        
+                        <button class="btn" id="blue" onclick="weather()">&#x1F50D;</button>
+                    </div>
+                    
+                    <span class="temp fw-bolder fs-5" id="temp">WEATHER FORECAST</span>
+                    <img src="/image/clou.jpg" class="icon" alt="icon.png" id="imag" >
+                    <p class="city fw-bolder text-light" id="cityName"></p>
+                    
+                        <span id="coun" class="celsius city fw-bolder fs-4 text-dark"></span>
+                        <span id="longitude" class="lon city fw-bolder text-dark fs-4"></span>
+                        <span id="latitude" class="lat city fw-bolder text-dark fs-4"></span>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</center>
+
+
+    <script>
+
+
+     const weather = () => {
+                let key = "22fcb7579a04656329a1b3c81fa10380";
+                let endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${userLocation.value}&units=metric&appid=${key}`;
+                
+                fetch(endpoint)
+                .then(result => result.json())
+                .then((change)=>{
+                    console.log(change)
+               
+                let icon = `http://openweathermap.org/img/wn/${change.weather[0].icon}@2x.png`
+                imag.src = icon;
+                coun.innerHTML = `<p>Country</p>${change.sys.country}`;
+                cityName.innerHTML = change.name;
+                longitude.innerHTML = `<p>Longitude</p>${change.coord.lon}`;
+                latitude.innerHTML = `<p>Latitude</p>${change.coord.lat}`;
+                temperature.innerHTML = `${Math.round(change.main.temp)}&#8728;c`;
+            });
+            }
+        
+    </script>
+</body>
+</html>
